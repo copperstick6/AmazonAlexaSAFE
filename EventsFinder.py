@@ -65,19 +65,13 @@ def getCloseCrimes(address):
 def getAllCloseEvents(address):
 	a = getCloseCrimes(address)
 	s = ""
-	counter = 0
-	for i in a:
-		s+="There was a " +  str(i[3]) + " on " + str(i[0]) + " at " + str(i[4]) + "\n"
-		counter = counter+1
+	s+="The closest event is a " +  str(a[0][3]) + " on " + str(a[0][0]) + " at " + str(a[0][4]) + "\n"
 	return s
 
 def getAllFarEvents(address):
 	a = getFarCrimes(address)
 	s = ""
-	counter = 0
-	for i in a:
-		s+="There was a " +  str(i[3]) + " on " + str(i[0]) + " at " + str(i[4]) + "\n"
-		counter = counter+1
+	s+="The closest shooting is a " +  str(a[0][3]) + " on " + str(a[0][0]) + " at " + str(a[0][4]) + "\n"
 	return s
 
 
