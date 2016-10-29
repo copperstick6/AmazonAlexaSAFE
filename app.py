@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, flash, redirect, url_for
 from flask_pymongo import PyMongo
 from twilio.rest import TwilioRestClient
 from flask_mail import Mail, Message
+from flask_ask import Ask, statement, question
 import keys
 import sys
 from googleMapsDistance import *
@@ -33,10 +34,14 @@ app.config.update(
 	)
 mail = Mail(app)
 
-# the home page
-@app.route('/')
-def index():
-	return render_template('index.html')
+#@ask.intent('EmergencyIntent')
+@ask.launch
+def emergency():
+	return render_template('emergency')
+
+@ask.intent('AlertIntent', mapping={'city': 'City'})
+def alert():
+	return statement("Your city is " + city);
 
 # send emergency text
 # TODO deal w/ missing number
@@ -55,6 +60,11 @@ def send_emergency_email(address, msg_body):
 	msg = Message('Emergency', sender = gmail_username, recipients = [address])
 	msg.body = msg_body
 	mail.send(msg)
+
+def getNaturalAlerts()
+	for event in events:
+		eventLat, eventLon = [float(i) for i in event[2].split(' , ')]
+		if calculateDistance(eventLat, eventLon, userLat, userLon) < 5000000:
 
 if __name__ == '__main__':
 	app.run()
