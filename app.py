@@ -16,23 +16,6 @@ app.secret_key = keys.app_secret()
 # setup alexa stuff
 ask = Ask(app, "/")
 
-# mongo setup
-#app.config['MONGO_DBNAME'] = 'safe_db'
-#mongo = PyMongo(app)
-
-# email stuff
-gmail_username = 'safe2faconfirm@gmail.com'
-# TODO turn off DEBUG when in production
-app.config.update(
-	DEBUG = True,
-	MAIL_SERVER = 'smtp.gmail.com',
-	MAIL_PORT = 465,
-	MAIL_USE_SSL = True,
-	MAIL_USERNAME = gmail_username,
-	MAIL_PASSWORD = keys.gmail_password()
-	)
-mail = Mail(app)
-
 #@ask.intent('EmergencyIntent')
 @ask.launch
 def emergency():
@@ -41,15 +24,6 @@ def emergency():
 @ask.intent('AlertIntent', mapping={'city': 'City'})
 def alert():
 	return statement("Your city is " + city);
-
-# send emergency text
-# TODO deal w/ missing number
-def send_emergency_text(address, msg_body):
-	print("TEXTING", file=sys.stderr)
-	client = TwilioRestClient(keys.twilioSSIDKey(), keys.twilioAuth())
-	message = client.messages.create(body = msg_body,
-		to = address,
-		from_ = keys.phoneNumber())
 
 # send emergency email
 # TODO deal w/ invalid email addresses
