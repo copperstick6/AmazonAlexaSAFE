@@ -15,15 +15,20 @@ ask = Ask(app, "/")
 
 #@ask.intent('EmergencyIntent')
 @ask.launch
-def emergency():
-	print("EMERGENCY", file=sys.stderr)
-	return statement("\n".join(getNaturalAlerts()))
+def launch():
+	print('launching', file=sys.stderr)
+	#print("EMERGENCY", file=sys.stderr)
+	#result = getNaturalAlerts()
+	#return statement("\n".join(result))
 	#return statement('emergency')
 
 @ask.intent('AlertIntent')
 def alert():
 	print("Alert", file=sys.stderr)
-	return statement("\n".join(getNaturalAlerts()))
+	result = getNaturalAlerts()
+	print(result, file=sys.stderr)
+	return statement("alerting")
+	#return statement("\n".join(getNaturalAlerts()))
 	#return statement("Your city is " + city);
 
 def getNaturalAlerts():
@@ -32,9 +37,9 @@ def getNaturalAlerts():
 	for event in events:
 		eventLat, eventLon = [float(i) for i in event[2].split(' , ')]
 		# dummy userLat and userLon values
-		userLat = 30.27
-		userLon = 97.74
-		if calculateDistance(eventLat, eventLon, userLat, userLon) < 5000000:
+		userLat = -4.7155
+		userLon = 153.1534
+		if calculateDistance(eventLat, eventLon, userLat, userLon) <= 100:
 			# appends the titles of the natural events
 			eventList.append(event[0])
 	return eventList
