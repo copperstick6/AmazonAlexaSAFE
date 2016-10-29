@@ -59,7 +59,7 @@ def getCloseCrimes():
 				list1.append(list2)
 				list2=[]
 	return list1
-print(getCloseCrimes())
+#print(getCloseCrimes())
 #objects within list, in order: address, lat and long of activity, type, date,
 def getFarCrimes(lat, lon):
 	s= 'http://api.spotcrime.com/crimes.json?lat='

@@ -13,13 +13,12 @@ from EventsFinder import *
 app = Flask(__name__)
 app.secret_key = keys.app_secret()
 
-# set up the login manager
-login_manager = flask_login.LoginManager()
-login_manager.init_app(app)
+# setup alexa stuff
+ask = Ask(app, "/")
 
 # mongo setup
-app.config['MONGO_DBNAME'] = 'safe_db'
-mongo = PyMongo(app)
+#app.config['MONGO_DBNAME'] = 'safe_db'
+#mongo = PyMongo(app)
 
 # email stuff
 gmail_username = 'safe2faconfirm@gmail.com'
@@ -61,10 +60,11 @@ def send_emergency_email(address, msg_body):
 	msg.body = msg_body
 	mail.send(msg)
 
-def getNaturalAlerts()
+def getNaturalAlerts():
 	for event in events:
 		eventLat, eventLon = [float(i) for i in event[2].split(' , ')]
 		if calculateDistance(eventLat, eventLon, userLat, userLon) < 5000000:
+			pass
 
 if __name__ == '__main__':
 	app.run()
