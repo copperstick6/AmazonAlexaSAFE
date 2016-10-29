@@ -2,6 +2,7 @@ import keys
 import urllib.request
 import json
 import codecs
+import latLong
 
 #list1 is a list of a list of strings, where each element in the original list is
 #the list of elements
@@ -33,13 +34,14 @@ def getNaturalEvents():
 			else:
 				list2.append("N/A, no affected countries")
 			list1.append(list2)
-				
+
 	return list1
 
-def getCloseCrimes(lat, lon):
+
+def getCloseCrimes():
 	s= 'http://api.spotcrime.com/crimes.json?lat='
-	s+=str(lat) + "&"
-	s+="lon=" + str(lon)
+	s+=str(latLong.getLatLong()[0]) + "&"
+	s+="lon=" + str(latLong.getLatLong()[1])
 	s+="&radius=2&key=."
 	list1=[]
 	list2 = []
@@ -57,7 +59,7 @@ def getCloseCrimes(lat, lon):
 				list1.append(list2)
 				list2=[]
 	return list1
-
+print(getCloseCrimes())
 #objects within list, in order: address, lat and long of activity, type, date,
 def getFarCrimes(lat, lon):
 	s= 'http://api.spotcrime.com/crimes.json?lat='
