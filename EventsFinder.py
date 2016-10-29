@@ -65,13 +65,19 @@ def getCloseCrimes(address):
 def getAllCloseEvents(address):
 	a = getCloseCrimes(address)
 	s = ""
-	s+="The closest event is a " +  str(a[0][3]) + " on " + str(a[0][0]) + " at " + str(a[0][4]) + "\n"
+	try:
+		s+="The closest event is a " +  str(a[0][3]) + " on " + str(a[0][0]) + " at " + str(a[0][4]) + "\n"
+	except:
+		s= "There was no event."
 	return s
 
 def getAllFarEvents(address):
 	a = getFarCrimes(address)
 	s = ""
-	s+="The closest shooting is a " +  str(a[0][3]) + " on " + str(a[0][0]) + " at " + str(a[0][4]) + "\n"
+	try:
+		s+="The closest event is a " +  str(a[0][3]) + " on " + str(a[0][0]) + " at " + str(a[0][4]) + "\n"
+	except:
+		s= "There was no event."
 	return s
 
 
