@@ -44,7 +44,6 @@ def getUnFormattedLongLat(address1):
         else:
             tempString+=i
     s+=tempString + "&key=" + keys.GoogleMapsKey()
-    print(s)
     webUrl = urllib.request.urlopen(s)
     if(webUrl.getcode()==200):
         str_response = webUrl.read().decode('utf-8')

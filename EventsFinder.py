@@ -3,6 +3,7 @@ import urllib.request
 import json
 import codecs
 import latLong
+import googleMapsDistance
 
 #list1 is a list of a list of strings, where each element in the original list is
 #the list of elements
@@ -38,10 +39,10 @@ def getNaturalEvents():
 	return list1
 
 
-def getCloseCrimes():
+def getCloseCrimes(address):
 	s= 'http://api.spotcrime.com/crimes.json?lat='
-	s+=str(latLong.getLatLong()[0]) + "&"
-	s+="lon=" + str(latLong.getLatLong()[1])
+	s+=str(googleMapsDistance.getUnFormattedLongLat(address)[0]) + "&"
+	s+="lon=" + str(googleMapsDistance.getUnFormattedLongLat(address)[1])
 	s+="&radius=2&key=."
 	list1=[]
 	list2 = []
@@ -59,12 +60,12 @@ def getCloseCrimes():
 				list1.append(list2)
 				list2=[]
 	return list1
-#print(getCloseCrimes())
+
 #objects within list, in order: address, lat and long of activity, type, date,
-def getFarCrimes(lat, lon):
+def getFarCrimes(address):
 	s= 'http://api.spotcrime.com/crimes.json?lat='
-	s+=str(lat) + "&"
-	s+="lon=" + str(lon)
+	s+=str(googleMapsDistance.getUnFormattedLongLat(address)[0]) + "&"
+	s+="lon=" + str(googleMapsDistance.getUnFormattedLongLat(address)[1])
 	s+="&radius=2&key=."
 	list1=[]
 	list2 = []
