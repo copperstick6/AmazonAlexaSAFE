@@ -15,3 +15,5 @@ def getLatLong():
         a.append(obj["latitude"])
         a.append(obj["longitude"])
     return a
+
+print(getLatLong())
