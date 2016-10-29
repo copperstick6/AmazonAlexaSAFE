@@ -51,7 +51,7 @@ def getCloseCrimes(address):
 		response = webUrl.read().decode('utf-8')
 		theJSON = json.loads(response)["crimes"]
 		for i in theJSON:
-			if(i["type"]!="Shooting"):
+			if(i["type"]!="Shooting" and i["type"]!="Other"):
 				list2.append(i["address"])
 				list2.append(i["lat"])
 				list2.append(i["lon"])
@@ -60,6 +60,27 @@ def getCloseCrimes(address):
 				list1.append(list2)
 				list2=[]
 	return list1
+
+
+def getAllCloseEvents(address):
+	a = getCloseCrimes(address)
+	s = ""
+	counter = 0
+	for i in a:
+		s+="There was a " +  str(i[3]) + " on " + str(i[0]) + " at " + str(i[4]) + "\n"
+		counter = counter+1
+	return s
+
+def getAllFarEvents(address):
+	a = getFarCrimes(address)
+	s = ""
+	counter = 0
+	for i in a:
+		s+="There was a " +  str(i[3]) + " on " + str(i[0]) + " at " + str(i[4]) + "\n"
+		counter = counter+1
+	return s
+
+
 
 #objects within list, in order: address, lat and long of activity, type, date,
 def getFarCrimes(address):
