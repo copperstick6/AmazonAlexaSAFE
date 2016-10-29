@@ -1,3 +1,10 @@
+import urllib.request
+import json
+import pprint
+import sys
+import codecs
+
+
 def getLatLong():
     send_url = 'http://freegeoip.net/json'
     webUrl = urllib.request.urlopen(send_url)
